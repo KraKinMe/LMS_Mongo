@@ -1,0 +1,28 @@
+{
+  "name": "lms_mongo",
+  "version": "1.0.0",
+  "description": "Practicing Mongo DB",
+  "homepage": "https://github.com/KraKinMe/LMS_Mongo#readme",
+  "bugs": {
+    "url": "https://github.com/KraKinMe/LMS_Mongo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KraKinMe/LMS_Mongo.git"
+  },
+  "license": "ISC",
+  "author": "Dhruv Agrawal",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.17.0",
+    "nodemon": "^3.1.10"
+  }
+}
