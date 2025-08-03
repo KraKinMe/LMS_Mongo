@@ -1,6 +1,8 @@
 const { exists } = require("../models/book-model.js");
 const {BookModel,UserModel}=require("../models/index.js");
 
+const IssueBook=require("../dtos/book-dto.js")
+
 // const getAllBooks=()=>{
     
 // }
@@ -85,5 +87,14 @@ exports.getBookByID=async (req,res)=>{
 exports.getAllIssuedBooks=async (req,res)=>{
     const users= await UserModel.find({
         issuedBook:{$exists:true},
-    }).populate("issuedBook")
+    }).populate("issuedBook");
+
+    const issuedBook=users.map((each)=>{
+        return new issuedBook(each);
+    })
+
+    res.status(200).json({
+        success:true,
+        data:issuedBook
+    })
 }
