@@ -1,7 +1,7 @@
 const express=require('express');
 
-let {books}=require('../data/books.json');
-const {users}=require('../data/users.json');
+// let {books}=require('../data/books.json');
+// const {users}=require('../data/users.json');
 
 
 const {UserModel, BookModel} = require("../models/index.js");

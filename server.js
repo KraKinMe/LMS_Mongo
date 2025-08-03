@@ -16,11 +16,16 @@ app.get('/',(req,res)=>{
     })
 })
 
-app.all('/*splat',(req,res)=>{
-    res.status(500).json({
-        message:"Not Built Yet"
-    })
-})
+const bookRouter=require('./routes/books.js');
+app.use('/books',bookRouter);
+
+// app.all('*',(req,res)=>{
+//     res.status(500).json({
+//         message:"Not Built Yet"
+//     })
+// })
+
+
 
 
 const PORT=process.env.PORT || 3000;
