@@ -15,7 +15,6 @@ class IssueBook{
         this._id=user.issuedBook._id;
         this.name=user.issuedBook.name;
         this.author=user.issuedBook.author;
-        this.author=user.issuedBook.author;
         this.genre=user.issuedBook.genre;
         this.price=user.issuedBook.price;
         this.publisher=user.issuedBook.publisher;

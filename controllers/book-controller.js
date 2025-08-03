@@ -1,7 +1,14 @@
-const { exists } = require("../models/book-model.js");
+
 const {BookModel,UserModel}=require("../models/index.js");
 
 const IssueBook=require("../dtos/book-dto.js")
+
+
+//ALL GET METHODS------>>>>
+//ALL GET METHODS------>>>>
+//ALL GET METHODS------>>>>
+//ALL GET METHODS------>>>>
+//ALL GET METHODS------>>>>
 
 // const getAllBooks=()=>{
     
@@ -49,7 +56,7 @@ exports.getBookByID=async (req,res)=>{
     const {id}=req.params;
     const book=await BookModel.findById(id);
 
-    if(book){
+    if(!book){
         return res.status(404).json({
             success:false,
             message:`No book with ID: ${id}`
@@ -89,12 +96,64 @@ exports.getAllIssuedBooks=async (req,res)=>{
         issuedBook:{$exists:true},
     }).populate("issuedBook");
 
-    const issuedBook=users.map((each)=>{
-        return new issuedBook(each);
+    const ListofissuedBook=users.map((each)=>{
+        return new IssueBook(each);
     })
 
     res.status(200).json({
         success:true,
-        data:issuedBook
+        data:ListofissuedBook
+    })
+}
+
+
+
+
+
+// ALL POST METHODS----->>>>
+// ALL POST METHODS----->>>>
+// ALL POST METHODS----->>>>
+// ALL POST METHODS----->>>>
+// ALL POST METHODS----->>>>
+// ALL POST METHODS----->>>>
+
+
+exports.addNewBook = async (req,res)=>{
+    const {data}=req.body;
+
+    await BookModel.create(data);
+
+    res.status(201).json({
+        success:true,
+        data:data
+    })
+}
+
+
+
+// ALL PUT METHODS---->>>>
+// ALL PUT METHODS---->>>>
+// ALL PUT METHODS---->>>>
+// ALL PUT METHODS---->>>>
+// ALL PUT METHODS---->>>>
+
+exports.updateBookByID = async (req,res)=>{
+    const {id}=req.params;
+    const {data}=req.body;
+
+    const book=await BookModel.findById(id);
+    if(!book){
+        return res.status(404).json({
+            success:false,
+            message:`Book not found for id: ${id}`
+        })
+
+    }
+    Object.assign(book,data);
+    await book.save();
+
+    res.status(200).json({
+        success:true,
+        data:book
     })
 }

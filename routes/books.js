@@ -5,7 +5,7 @@ const {users}=require('../data/users.json');
 
 
 const {UserModel, BookModel} = require("../models/index.js");
-const { getAllBooks,getBookByID, getAllIssuedBooks} = require('../controllers/book-controller.js');
+const { getAllBooks,getBookByID, getAllIssuedBooks, addNewBook, updateBookByID} = require('../controllers/book-controller.js');
 const router=express.Router();
 
 // router.get('/',(req,res)=>{
@@ -33,72 +33,74 @@ router.get('/',getAllBooks)
 router.get('/:id',getBookByID)
 
 
-router.post('/',(req,res)=>{
-    // "id": "3",
-    //   "name": "The Land Before Time",
-    //   "author": "Alan Moore",
-    //   "genre": "Children's",
-    //   "price": "8.50",
-    //   "publisher"
-    const {id,name,author,genre,price,publisher}=req.body;
+// router.post('/',(req,res)=>{
+//     // "id": "3",
+//     //   "name": "The Land Before Time",
+//     //   "author": "Alan Moore",
+//     //   "genre": "Children's",
+//     //   "price": "8.50",
+//     //   "publisher"
+//     const {id,name,author,genre,price,publisher}=req.body;
     
     
-    if(!id || !name || !author || !genre || !price || !publisher){
-        return res.status(400).json({
-            success:false,
-            message:"Please provide all the details"
-        })
-    }
+//     if(!id || !name || !author || !genre || !price || !publisher){
+//         return res.status(400).json({
+//             success:false,
+//             message:"Please provide all the details"
+//         })
+//     }
     
-    const thisBook=books.find((each)=>each.id===id);
+//     const thisBook=books.find((each)=>each.id===id);
 
-    if(thisBook){
-        return res.status(409).json({
-            success:false,
-            message:`Book by ID:${id} already exists`
-        })
-    }
+//     if(thisBook){
+//         return res.status(409).json({
+//             success:false,
+//             message:`Book by ID:${id} already exists`
+//         })
+//     }
 
-    let newBook={id,name,author,genre,price,publisher}
+//     let newBook={id,name,author,genre,price,publisher}
 
-    books.push(newBook);
+//     books.push(newBook);
 
-    res.status(201).json({
-        success:true,
-        message:`Book added successfully`
-    })
+//     res.status(201).json({
+//         success:true,
+//         message:`Book added successfully`
+//     })
     
-})
+// })
+router.post('/',addNewBook);
 
 
-router.put('/:id',(req,res)=>{
-    const {id}=req.params;
-    const {data}=req.body;
+// router.put('/:id',(req,res)=>{
+//     const {id}=req.params;
+//     const {data}=req.body;
 
-    const book=books.find((each)=>each.id===id);
+//     const book=books.find((each)=>each.id===id);
 
-    if(!book){
-        return res.status(404).json({
-            success:false,
-            message:`Book Not Found for ${id}`
-        })
-    }
+//     if(!book){
+//         return res.status(404).json({
+//             success:false,
+//             message:`Book Not Found for ${id}`
+//         })
+//     }
 
-    books=books.map((each)=>{
-        if(each.id===id){
-            return{
-                ...each,
-                ...data
-            }
-        }
-        return each;
-    })
+//     books=books.map((each)=>{
+//         if(each.id===id){
+//             return{
+//                 ...each,
+//                 ...data
+//             }
+//         }
+//         return each;
+//     })
 
-    res.status(200).json({
-        success:true,
-        message:`Book Updated Successfully`
-    })
-})
+//     res.status(200).json({
+//         success:true,
+//         message:`Book Updated Successfully`
+//     })
+// })
+router.put('/:id',updateBookByID);
 
 
 router.delete('/:id',(req,res)=>{
