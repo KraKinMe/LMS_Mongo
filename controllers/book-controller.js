@@ -118,17 +118,24 @@ exports.getAllIssuedBooks=async (req,res)=>{
 // ALL POST METHODS----->>>>
 
 
-exports.addNewBook = async (req,res)=>{
-    const {data}=req.body;
+exports.addNewBook = async (req, res) => {
+    try {
+        const { data } = req.body;
 
-    await BookModel.create(data);
+        const newBook = await BookModel.create(data);
 
-    res.status(201).json({
-        success:true,
-        data:data
-    })
-}
-
+        res.status(201).json({
+            success: true,
+            data: newBook
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to add new book",
+            error: error.message // Sending the error message for debugging
+        });
+    }
+};
 
 
 // ALL PUT METHODS---->>>>
