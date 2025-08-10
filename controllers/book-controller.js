@@ -2,7 +2,6 @@
 const {BookModel,UserModel}=require("../models/index.js");
 
 const IssueBook=require("../dtos/book-dto.js");
-const { findByIdAndDelete } = require("../models/user-model.js");
 
 
 //ALL GET METHODS------>>>>
@@ -11,13 +10,9 @@ const { findByIdAndDelete } = require("../models/user-model.js");
 //ALL GET METHODS------>>>>
 //ALL GET METHODS------>>>>
 
-// const getAllBooks=()=>{
-    
-// }
-// const getBookByID=()=>{
 
-// }
 
+// C
 // router.get('/',(req,res)=>{
 //     res.status(200).json({
 //         success:true,
@@ -28,14 +23,14 @@ const { findByIdAndDelete } = require("../models/user-model.js");
 exports.getAllBooks=async (req,res)=>{
     const Books=await BookModel.find()
     if(Books.length===0){
-        return res.status.json({
+        return res.status(404).json({
             success:false,
             message:"No Books in the system"
         })
     }
     res.status(200).json({
         success:true,
-        data:books
+        data: Books
     })
 }
 
@@ -53,6 +48,7 @@ exports.getAllBooks=async (req,res)=>{
 //         data:thisBook
 //     })
 // })
+
 exports.getBookByID=async (req,res)=>{
     const {id}=req.params;
     const book=await BookModel.findById(id);
@@ -68,6 +64,7 @@ exports.getBookByID=async (req,res)=>{
         data:book
     })
 }
+
 // router.get('/issued/for-users',(req,res)=>{
 //     const usersWithIssuedBooks=users.filter((each)=>{
 //         if(each.issuedBook){
@@ -92,6 +89,7 @@ exports.getBookByID=async (req,res)=>{
 //         data:issuedBooks
 //     })
 // }) 
+
 exports.getAllIssuedBooks=async (req,res)=>{
     const users= await UserModel.find({
         issuedBook:{$exists:true},
@@ -127,7 +125,7 @@ exports.addNewBook = async (req, res) => {
 
         res.status(201).json({
             success: true,
-            data: newBookx
+            data: newBook
         });
     } catch (error) {
         res.status(500).json({
@@ -188,7 +186,7 @@ exports.updateBookByID = async (req,res)=>{
 // }
 exports.deleteBookByID = async (req,res)=>{
     const {id}=req.params;
-    const book = findByIdAndDelete(id);
+    const book = await BookModel.findByIdAndDelete(id);
 
     res.status(200).json({
         success:true,
