@@ -1,7 +1,8 @@
 
 const {BookModel,UserModel}=require("../models/index.js");
 
-const IssueBook=require("../dtos/book-dto.js")
+const IssueBook=require("../dtos/book-dto.js");
+const { findByIdAndDelete } = require("../models/user-model.js");
 
 
 //ALL GET METHODS------>>>>
@@ -126,7 +127,7 @@ exports.addNewBook = async (req, res) => {
 
         res.status(201).json({
             success: true,
-            data: newBook
+            data: newBookx
         });
     } catch (error) {
         res.status(500).json({
@@ -162,5 +163,35 @@ exports.updateBookByID = async (req,res)=>{
     res.status(200).json({
         success:true,
         data:book
+    })
+}
+
+
+// (req,res)=>{
+//     const {id}=req.params;
+
+//     const index=books.findIndex((each)=>each.id===id);
+
+//     if(index===-1){
+//         return res.status(404).json({
+//             success:false,
+//             message:`No Book with ID: ${id}`
+//         })
+//     }
+
+//     books.splice(index,1);
+
+//     res.status(200).json({
+//         success:true,
+//         message:`Successfully Deleted`
+//     })
+// }
+exports.deleteBookByID = async (req,res)=>{
+    const {id}=req.params;
+    const book = findByIdAndDelete(id);
+
+    res.status(200).json({
+        success:true,
+        message:`Deleted successuffly ${id}`
     })
 }

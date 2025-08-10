@@ -5,7 +5,7 @@ const express=require('express');
 
 
 const {UserModel, BookModel} = require("../models/index.js");
-const { getAllBooks,getBookByID, getAllIssuedBooks, addNewBook, updateBookByID} = require('../controllers/book-controller.js');
+const { getAllBooks,getBookByID, getAllIssuedBooks, addNewBook, updateBookByID, deleteBookByID} = require('../controllers/book-controller.js');
 const router=express.Router();
 
 // router.get('/',(req,res)=>{
@@ -103,25 +103,27 @@ router.post('/',addNewBook);
 router.put('/:id',updateBookByID);
 
 
-router.delete('/:id',(req,res)=>{
-    const {id}=req.params;
+// router.delete('/:id',(req,res)=>{
+//     const {id}=req.params;
 
-    const index=books.findIndex((each)=>each.id===id);
+//     const index=books.findIndex((each)=>each.id===id);
 
-    if(index===-1){
-        return res.status(404).json({
-            success:false,
-            message:`No Book with ID: ${id}`
-        })
-    }
+//     if(index===-1){
+//         return res.status(404).json({
+//             success:false,
+//             message:`No Book with ID: ${id}`
+//         })
+//     }
 
-    books.splice(index,1);
+//     books.splice(index,1);
 
-    res.status(200).json({
-        success:true,
-        message:`Successfully Deleted`
-    })
-})
+//     res.status(200).json({
+//         success:true,
+//         message:`Successfully Deleted`
+//     })
+// })
+
+router.delete('/:id',deleteBookByID)
 
 /// BOOKS+USER DATA
 
